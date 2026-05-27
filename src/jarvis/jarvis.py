@@ -2,9 +2,14 @@ import os
 import sys
 import webbrowser
 from RealtimeSTT import AudioToTextRecorder  # pyright: ignore[reportMissingImports]
+import re
 
+def respond(response):
+    print(f"\n{response}\n")
 def launch_app(name: str):
-    if name.startswith(("http://", "https://", "www.")) or ("." in name and "/" not in name):
+    name = name.strip().strip('.,;:!?')
+    url_pattern = re.compile(r'^[\w.-]+\.[a-z]{2,}$', re.IGNORECASE)
+    if name.startswith(("http://", "https://", "www.")) or url_pattern.match(name):
         url = name if name.startswith("http") else f"https://{name}"
         webbrowser.open(url)
         return
@@ -15,18 +20,19 @@ def launch_app(name: str):
         os.system(f'start "" "{name}"')
     else:
         os.system(f'xdg-open "{name}"')
+
     
 def process_text(text):
     if "jarvis" in text.lower():
         text = text.lower().replace("jarvis", "").strip()
-        print(f"You said: {text}")
+        respond(f"You said: {text}")
         if "close" in text.lower() or "exit" in text.lower() or "quit" in text.lower():
-            print("Bye bye")
+            respond("Bye bye")
             return 
 
         # Saying hello
         elif "hi" in text.lower() or "hey" in text.lower() or "hello" in text.lower():
-            print("Hello")
+            respond("Hello")
         
         # Opening apps/links
         elif "open" in text.lower():
