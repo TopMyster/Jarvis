@@ -1,0 +1,14 @@
+[project]
+name = "jarvis"
+version = "0.1.0"
+description = "Jarvis for desktop"
+readme = "README.md"
+dependencies = [
+    "RealtimeSTT[faster-whisper]"
+]
+
+[project.scripts]
+jarvis = "jarvis.jarvis:jarvis"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/jarvis"]
