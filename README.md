@@ -1,16 +1,13 @@
-# Jarvis Voice Assistant
+# Jarvis
 
-A lightweight, cross‑platform voice‑controlled assistant built on **RealtimeSTT** and **faster‑whisper**. It listens for the wake‑word `jarvis`, understands simple commands, and can launch applications or open URLs.
+A cross‑platform voice‑controlled assistant built on **RealtimeSTT** that understands simple commands, and can launch applications or open URLs.
 
----
 
 ## Features
 
 - Wake word detection (`jarvis`)
 - Opens Apps and websites
 - Cross platform support (macOS, Windows, Linux)
-
----
 
 ## Requirements
 
@@ -30,7 +27,6 @@ brew install portaudio
 sudo apt-get install python3-dev portaudio19-dev
 ```
 
----
 
 ## Installation
 
