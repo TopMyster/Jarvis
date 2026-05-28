@@ -2,12 +2,15 @@ import os
 import sys
 import webbrowser
 import re
-
+import pyttsx3
 from RealtimeSTT import AudioToTextRecorder  # pyright: ignore[reportMissingImports]
 
 
 def respond(response):
     print(f"\n{response}\n")
+    engine = pyttsx3.init()
+    engine.say(response)
+    engine.runAndWait()
 
 
 def launch_app(name: str):
