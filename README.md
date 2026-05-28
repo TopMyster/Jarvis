@@ -40,6 +40,12 @@ pip install "RealtimeSTT[faster-whisper]"
 pip install -e .
 ```
 
+# Adding your Openrouter APIKEY
+
+```bash
+# Add your api key to the .env file in the src/jarvis directory
+OPENROUTER_API_KEY="sk-or-v1-your-api-key-here" #Your Openrouter API KEY
+```
 ---
 
 ## Running Jarvis
