@@ -35,8 +35,7 @@ sudo apt-get install python3-dev portaudio19-dev
 git clone https://github.com/yourusername/Jarvis.git
 cd Jarvis
 
-# Install dependencies (editable install)
-pip install "RealtimeSTT[faster-whisper]"
+# Install Jarvis
 pip install -e .
 ```
 

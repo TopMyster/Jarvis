@@ -4,7 +4,10 @@ version = "0.1.0"
 description = "Jarvis for desktop"
 readme = "README.md"
 dependencies = [
-    "RealtimeSTT[faster-whisper]"
+    "RealtimeSTT[faster-whisper]",
+    "openrouter",
+    "python-dotenv",
+    "pyttsx3"
 ]
 
 [project.scripts]
