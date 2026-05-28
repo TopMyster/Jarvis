@@ -7,12 +7,12 @@ A cross‑platform voice‑controlled assistant built on **RealtimeSTT** that un
 
 - Wake word detection (`jarvis`)
 - Opens Apps and websites
+- Get Answers from AI
 - Cross platform support (macOS, Windows, Linux)
 
 ## Requirements
 
 - Python **3.11** or newer
-- RealtimeSTT
 - PortAudio development libraries
 
 ### macOS
@@ -39,7 +39,7 @@ cd Jarvis
 pip install -e .
 ```
 
-# Adding your Openrouter APIKEY
+# Configuration
 
 ```bash
 # Add your api key to the .env file in the src/jarvis directory
@@ -56,6 +56,8 @@ jarvis
 When prompted, say commands like:
 - "Jarvis open Spotify" – Jarvis will launch the Spotify app.
 - "Jarvis open google.com" – Jarvis will open the website in your default browser.
+- "Jarvis search python tutorials" - Jarvis will search Google for your query.
+- "Jarvis what is the capital of France?" - Jarvis will ask the AI and speak the answer.
 - "Jarvis hey" – Jarvis will greet you.
 - "Jarvis quit" – Jarvis will exit the assistant.
 
