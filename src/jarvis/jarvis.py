@@ -3,8 +3,12 @@ import sys
 import webbrowser
 import re
 import pyttsx3
+from openrouter import OpenRouter 
 from RealtimeSTT import AudioToTextRecorder  # pyright: ignore[reportMissingImports]
-
+from dotenv import load_dotenv
+load_dotenv()
+API_KEY = os.getenv("OPENROUTER_API_KEY")
+chat_history = []
 
 def respond(response):
     print(f"\n{response}\n")
@@ -40,6 +44,21 @@ def launch_app(name: str):
 
     respond(f"Opening {name}")
 
+def ask_ai(txt):
+    chat_history.append({"role": "user", "content": txt})
+    with OpenRouter(
+        api_key=API_KEY
+    ) as client:
+        response = client.chat.send(
+            model="openai/gpt-oss-20b",
+            messages=chat_history,
+            temperature=0.7
+        )
+
+        ai_msg = response.choices[0].message
+        chat_history.append({"role": "assistant", "content": ai_msg.content})
+        return ai_msg.content
+
 
 def process_text(text):
 
@@ -65,6 +84,17 @@ def process_text(text):
                 launch_app(app)
             else:
                 respond("What should I open?")
+
+        #Searching in Google
+        elif command.startswith("search"):
+            query = command.replace("search", "", 1).strip()
+            if query:
+                webbrowser.open(f"https://www.google.com/search?q={query}")
+                respond(f"Searching the web for {query}")
+        #Asking AI
+        else:
+            answer = ask_ai(command.replace("jarvis", "", 1).strip())
+            respond(answer)
 
 
 def jarvis():
