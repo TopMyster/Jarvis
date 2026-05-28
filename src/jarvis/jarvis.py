@@ -107,6 +107,13 @@ def jarvis():
  \___/ \__,_|_|    \_/ |_|___/
         """
     )
+    global API_KEY
+    if not API_KEY:
+        API_KEY = input("Enter your Openrouter API KEY here: \n> ")
+        env_path = os.path.join(os.path.dirname(__file__), ".env")
+        with open(env_path, "w") as f:
+            f.write(f'OPENROUTER_API_KEY="{API_KEY}"\n')
+        print("API Key saved.")
 
     recorder = AudioToTextRecorder()
 
