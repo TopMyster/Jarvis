@@ -64,7 +64,7 @@ def process_text(text):
 
     if "jarvis" in text.lower():
         print(f"You said: {text}")
-        command = text.lower().replace("jarvis", "", 1).strip()
+        command = text.lower().replace("jarvis", "", 1).strip(" ,.!?;:")
         # Exiting
         if any(word in command for word in ["close", "exit", "quit"]):
             respond("Bye bye")
@@ -88,12 +88,17 @@ def process_text(text):
         #Searching in Google
         elif command.startswith("search"):
             query = command.replace("search", "", 1).strip()
+            if query.startswith("for "):
+                query = query.replace("for ", "", 1).strip()
+            elif query.startswith("up "):
+                query = query.replace("up ", "", 1).strip()
+                
             if query:
                 webbrowser.open(f"https://www.google.com/search?q={query}")
                 respond(f"Searching the web for {query}")
         #Asking AI
         else:
-            answer = ask_ai(command.replace("jarvis", "", 1).strip())
+            answer = ask_ai(command.replace("jarvis", "", 1).strip(" ,.!?;:"))
             respond(answer)
 
 
