@@ -45,7 +45,7 @@ def launch_app(name: str):
     respond(f"Opening {name}")
 
 def ask_ai(txt):
-    chat_history.append({"role": "user", "content": txt})
+    chat_history.append({"role": "user", "content": f"Answer this question/phrase in a short sentence with accuracy, brevity, clarity and natural language: {txt}"})
     with OpenRouter(
         api_key=API_KEY
     ) as client:

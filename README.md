@@ -36,7 +36,7 @@ git clone https://github.com/yourusername/Jarvis.git
 cd Jarvis
 
 # Install Jarvis
-pip install -e .
+pip install .
 ```
 
 ---
