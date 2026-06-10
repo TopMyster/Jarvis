@@ -30,6 +30,14 @@ sudo apt-get install python3-dev portaudio19-dev
 
 ## Installation
 
+### From PyPI (Recommended)
+
+```bash
+pip install jarvis-voice-desktop
+```
+
+### From Source
+
 ```bash
 # Clone the repository
 git clone https://github.com/yourusername/Jarvis.git
@@ -39,7 +47,6 @@ cd Jarvis
 pip install .
 ```
 
----
 
 ## Running Jarvis
 

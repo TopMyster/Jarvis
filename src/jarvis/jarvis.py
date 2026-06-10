@@ -102,7 +102,7 @@ def process_text(text):
             respond(answer)
 
 
-def jarvis():
+def main():
     print(
         r"""
      _                  _
@@ -130,4 +130,4 @@ def jarvis():
 
 
 if __name__ == "__main__":
-    jarvis()
+    main()
