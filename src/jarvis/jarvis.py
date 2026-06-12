@@ -2,6 +2,12 @@ import os
 import sys
 import webbrowser
 import re
+import warnings
+import subprocess
+import pygame
+from importlib.resources import files, as_file
+warnings.filterwarnings("ignore", category=UserWarning)
+os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "1"
 import pyttsx3 # pyright: ignore[reportMissingImports]
 from openrouter import OpenRouter  # pyright: ignore[reportMissingImports]
 from RealtimeSTT import AudioToTextRecorder  # pyright: ignore[reportMissingImports]
@@ -104,6 +110,9 @@ def process_text(text):
                 respond(f"Searching the web for {query}")
         #Asking AI
         else:
+            pygame.mixer.init()
+            pygame.mixer.music.load("")
+            pygame.mixer.music.play()
             answer = ask_ai(command.replace("jarvis", "", 1).strip(" ,.!?;:"))
             respond(answer)
 
