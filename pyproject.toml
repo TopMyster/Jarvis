@@ -28,8 +28,7 @@ dependencies = [
     "RealtimeSTT[faster-whisper]",
     "openrouter",
     "python-dotenv",
-    "pyttsx3",
-    "pygame"
+    "pyttsx3"
 ]
 
 [project.urls]

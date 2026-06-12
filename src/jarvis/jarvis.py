@@ -2,12 +2,7 @@ import os
 import sys
 import webbrowser
 import re
-import warnings
-import subprocess
-import pygame
-from importlib.resources import files, as_file
-warnings.filterwarnings("ignore", category=UserWarning)
-os.environ["PYGAME_HIDE_SUPPORT_PROMPT"] = "1"
+import random
 import pyttsx3 # pyright: ignore[reportMissingImports]
 from openrouter import OpenRouter  # pyright: ignore[reportMissingImports]
 from RealtimeSTT import AudioToTextRecorder  # pyright: ignore[reportMissingImports]
@@ -52,7 +47,8 @@ def launch_app(name: str):
 
 def ask_ai(txt):
     chat_history.append({"role": "user", "content": f"You are Jarvis, an intelligent personal assistant. Do not ever say your name. Provide accurate, clear, and natural responses in a single, concise sentence (around 30 words), unless the user explicitly requests more detail. If asked to open an application, simply reply: 'To open an app, say my name then open [app name] or go to [app name]. This is the users question/statement: {txt}'"})
-    respond("Working on it")
+    phrase = ['Working on it', 'Sure thing', 'Just a minute', 'No problem']
+    respond(phrase[random.randint(0, 3)])
     with OpenRouter(
         api_key=API_KEY
     ) as client:
@@ -72,13 +68,17 @@ def process_text(text):
     if "jarvis" in text.lower():
         print(f"You said: {text}")
         command = text.lower().replace("jarvis", "", 1).strip(" ,.!?;:")
+
+        def contains_word(words: list[str]) -> bool:
+            return any(re.search(rf"\b{re.escape(word)}\b", command) for word in words)
+
         # Exiting
-        if any(word in command for word in ["close", "exit", "quit"]):
+        if contains_word(["close", "exit", "quit"]):
             respond("Bye bye")
             sys.exit()
 
         # Greetings
-        elif any(word in command for word in ["hi", "hello", "hey"]):
+        elif contains_word(["hi", "hello", "hey"]):
             respond("Hello")
 
         # Help
@@ -110,9 +110,6 @@ def process_text(text):
                 respond(f"Searching the web for {query}")
         #Asking AI
         else:
-            pygame.mixer.init()
-            pygame.mixer.music.load("")
-            pygame.mixer.music.play()
             answer = ask_ai(command.replace("jarvis", "", 1).strip(" ,.!?;:"))
             respond(answer)
 
