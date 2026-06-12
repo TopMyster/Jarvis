@@ -2,10 +2,10 @@ import os
 import sys
 import webbrowser
 import re
-import pyttsx3
-from openrouter import OpenRouter 
+import pyttsx3 # pyright: ignore[reportMissingImports]
+from openrouter import OpenRouter  # pyright: ignore[reportMissingImports]
 from RealtimeSTT import AudioToTextRecorder  # pyright: ignore[reportMissingImports]
-from dotenv import load_dotenv
+from dotenv import load_dotenv # pyright: ignore[reportMissingImports]
 load_dotenv()
 API_KEY = os.getenv("OPENROUTER_API_KEY")
 chat_history = []
@@ -45,14 +45,15 @@ def launch_app(name: str):
     respond(f"Opening {name}")
 
 def ask_ai(txt):
-    chat_history.append({"role": "user", "content": f"Answer this question/phrase in a short sentence with accuracy, brevity, clarity and natural language: {txt}"})
+    chat_history.append({"role": "user", "content": f"You are Jarvis, an intelligent personal assistant. Provide accurate, clear, and natural responses in a single, concise sentence (around 30 words), unless the user explicitly requests more detail. If asked to open an application, simply reply: 'To open an app, say Jarvis open [app name] or go to [app name]. This is the users question/statement: {txt}'"})
+    respond("Working on it")
     with OpenRouter(
         api_key=API_KEY
     ) as client:
         response = client.chat.send(
             model="openai/gpt-oss-20b",
             messages=chat_history,
-            temperature=0.7
+            temperature=0.6
         )
 
         ai_msg = response.choices[0].message
@@ -73,6 +74,11 @@ def process_text(text):
         # Greetings
         elif any(word in command for word in ["hi", "hello", "hey"]):
             respond("Hello")
+
+        # Help
+        elif command.startswith("help"):
+            webbrowser.open("https://github.com/TopMyster/Jarvis/blob/main/README.md")
+            respond("I opened some instructions to assist you")
 
         # Opening apps/websites
         elif command.startswith(("go to", "open")):
@@ -100,7 +106,6 @@ def process_text(text):
         else:
             answer = ask_ai(command.replace("jarvis", "", 1).strip(" ,.!?;:"))
             respond(answer)
-
 
 def main():
     print(
