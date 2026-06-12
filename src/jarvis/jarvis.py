@@ -45,7 +45,7 @@ def launch_app(name: str):
     respond(f"Opening {name}")
 
 def ask_ai(txt):
-    chat_history.append({"role": "user", "content": f"You are Jarvis, an intelligent personal assistant. Provide accurate, clear, and natural responses in a single, concise sentence (around 30 words), unless the user explicitly requests more detail. If asked to open an application, simply reply: 'To open an app, say Jarvis open [app name] or go to [app name]. This is the users question/statement: {txt}'"})
+    chat_history.append({"role": "user", "content": f"You are Jarvis, an intelligent personal assistant. Do not ever say your name. Provide accurate, clear, and natural responses in a single, concise sentence (around 30 words), unless the user explicitly requests more detail. If asked to open an application, simply reply: 'To open an app, say my name then open [app name] or go to [app name]. This is the users question/statement: {txt}'"})
     respond("Working on it")
     with OpenRouter(
         api_key=API_KEY
