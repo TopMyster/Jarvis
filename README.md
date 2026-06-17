@@ -2,6 +2,7 @@
 
 A cross‑platform voice‑controlled assistant built on **RealtimeSTT** that understands simple commands, and can launch applications or open URLs.
 
+https://github.com/user-attachments/assets/21e7b695-6ca8-4f7a-b79e-94e754b6f0bf
 
 ## Features
 
