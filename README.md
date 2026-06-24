@@ -2,7 +2,7 @@
 
 Jarvis is a digital voice assistant built with RealtimeSTT that can launch apps, open links, search google, and answer questions using AI
 
-https://github.com/user-attachments/assets/21e7b695-6ca8-4f7a-b79e-94e754b6f0bf
+https://github.com/user-attachments/assets/b174eb78-db2b-451b-ae2d-8761eb9feeb6
 
 ## Features
 
