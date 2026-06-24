@@ -1,6 +1,6 @@
 # Jarvis
 
-A cross‑platform voice‑controlled assistant built on **RealtimeSTT** that understands simple commands, and can launch applications or open URLs.
+Jarvis is a digital voice assistant built with RealtimeSTT that can launch apps, open links, search google, and answer questions using AI
 
 https://github.com/user-attachments/assets/21e7b695-6ca8-4f7a-b79e-94e754b6f0bf
 
@@ -9,7 +9,8 @@ https://github.com/user-attachments/assets/21e7b695-6ca8-4f7a-b79e-94e754b6f0bf
 - Wake word detection (`jarvis`)
 - Opens Apps and websites
 - Get Answers from AI
-- Cross platform support (macOS, Windows, Linux)
+- Cross platform
+- Search Google
 
 ## Requirements
 
@@ -43,7 +44,7 @@ pip install jarvis-voice-desktop
 ```
 
 ```bash
-#Run Jarvis
+# Run Jarvis
 jarvis
 ```
 
@@ -53,13 +54,13 @@ jarvis
 jarvis
 ```
 
-When prompted, say commands like:
-- "Jarvis open Spotify" – Jarvis will launch the Spotify app.
-- "Jarvis open google.com" – Jarvis will open the website in your default browser.
-- "Jarvis search python tutorials" - Jarvis will search Google for your query.
-- "Jarvis what is the capital of France?" - Jarvis will ask the AI and speak the answer.
-- "Jarvis hey" – Jarvis will greet you.
-- "Jarvis quit" – Jarvis will exit the assistant.
+## Commands
+- **"Jarvis open Spotify"** – Then it will launch the Spotify app.
+- **"Jarvis open google.com"** – Then it will open google.com in your default browser.
+- **"Jarvis search python tutorials"** - Then it will search Google for pythong tutoials.
+- **"Jarvis what is the capital of France?"** - Then it will use AI to tell you the capital of France.
+- **"Jarvis hey"** – Then it will say hi back.
+- **"Jarvis quit"** – Then it will quit.
 
 ---
 
