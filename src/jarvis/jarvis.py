@@ -8,7 +8,9 @@ from openrouter import OpenRouter  # pyright: ignore[reportMissingImports]
 from RealtimeSTT import AudioToTextRecorder  # pyright: ignore[reportMissingImports]
 from dotenv import load_dotenv # pyright: ignore[reportMissingImports]
 load_dotenv()
+from datetime import datetime
 API_KEY = os.getenv("OPENROUTER_API_KEY")
+
 chat_history = []
 
 def respond(response):
@@ -46,8 +48,11 @@ def launch_app(name: str):
     respond(f"Opening {name}")
 
 def ask_ai(txt):
-    chat_history.append({"role": "user", "content": f"You are Jarvis, an intelligent personal assistant. Do not ever say your name. Provide accurate, clear, and natural responses in a single, concise sentence (around 30 words), unless the user explicitly requests more detail. If asked to open an application, simply reply: 'To open an app, say my name then open [app name] or go to [app name]. This is the users question/statement: {txt}'"})
-    phrase = ['Working on it', 'Sure thing', 'Just a minute', 'No problem']
+    time = datetime.now().strftime("%Y-%m-%d %H:%M")
+    chat_history.append({"role": "user", "content": (
+        f"You are a helpful, intelligent personal assistant. Core Directives:\n 1. Never say your own name.\n 2. Keep responses natural, accurate, and strictly capped at one concise sentence (around 30 words) unless requested otherwise.\n 3. If asked to open an application/website, you must respond EXACTLY with: 'To open an app or a website, say my name then open [app or the website's name] or go to [app or website's name].'\n 4. Internal Context: The current date/time is {time}. Use this for absolute memory/reasoning. Do NOT mention this timestamp in your response unless the user explicitly asks for the current time, current date, or asks when their message was sent and when they ask what time or date a message was sent tell the full date and time using June xx, 20xx format.\n User Message: {txt}"
+    )})
+    phrase = ['Working on it', 'Looking into it', 'Just a minute', 'Thinking']
     respond(phrase[random.randint(0, 3)])
     with OpenRouter(
         api_key=API_KEY
@@ -58,7 +63,7 @@ def ask_ai(txt):
             temperature=0.6
         )
 
-        ai_msg = response.choices[0].message
+        ai_msg = response.choices[0].message 
         chat_history.append({"role": "assistant", "content": ai_msg.content})
         return ai_msg.content
 
