@@ -1,6 +1,6 @@
 # Jarvis
 
-Jarvis is a digital voice assistant built with RealtimeSTT that can launch apps, open links, search google, and answer questions using AI
+Jarvis is a digital voice assistant built with RealtimeSTT that can launch apps, open links, search google, and answer questions using AI.
 
 https://github.com/user-attachments/assets/b174eb78-db2b-451b-ae2d-8761eb9feeb6
 
@@ -9,6 +9,7 @@ https://github.com/user-attachments/assets/b174eb78-db2b-451b-ae2d-8761eb9feeb6
 - Wake word detection (`jarvis`)
 - Opens Apps and websites
 - Get Answers from AI
+- Jarvis has memory
 - Cross platform
 - Search Google
 
@@ -59,6 +60,7 @@ jarvis
 - **"Jarvis open google.com"** – Then it will open google.com in your default browser.
 - **"Jarvis search python tutorials"** - Then it will search Google for pythong tutoials.
 - **"Jarvis what is the capital of France?"** - Then it will use AI to tell you the capital of France.
+- **"Jarvis what question did I ask you yesterday about tech?"** - Then it will tell you what you asked.
 - **"Jarvis hey"** – Then it will say hi back.
 - **"Jarvis quit"** – Then it will quit.
 

@@ -2,6 +2,7 @@ import os
 import sys
 import webbrowser
 import re
+import json
 import random
 import pyttsx3 # pyright: ignore[reportMissingImports]
 from openrouter import OpenRouter  # pyright: ignore[reportMissingImports]
@@ -10,8 +11,23 @@ from dotenv import load_dotenv # pyright: ignore[reportMissingImports]
 load_dotenv()
 from datetime import datetime
 API_KEY = os.getenv("OPENROUTER_API_KEY")
+HISTORY_PATH = os.path.join(os.path.dirname(__file__), "chat_history.json")
 
-chat_history = []
+# Load/save chat history
+def load_history_from_json():
+    if os.path.exists(HISTORY_PATH):
+        try:
+            with open(HISTORY_PATH, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except (json.JSONDecodeError, IOError):
+            return []
+    return []
+
+def save_history_to_json():
+    with open(HISTORY_PATH, "w", encoding="utf-8") as f:
+        json.dump(chat_history, f, indent=4, ensure_ascii=False)
+
+chat_history = load_history_from_json()
 
 def respond(response):
     print(f"\n{response}\n")
@@ -52,6 +68,7 @@ def ask_ai(txt):
     chat_history.append({"role": "user", "content": (
         f"You are a helpful, intelligent personal assistant. Core Directives:\n 1. Never say your own name.\n 2. Keep responses natural, accurate, and strictly capped at one concise sentence (around 30 words) unless requested otherwise.\n 3. If asked to open an application/website, you must respond EXACTLY with: 'To open an app or a website, say my name then open [app or the website's name] or go to [app or website's name].'\n 4. Internal Context: The current date/time is {time}. Use this for absolute memory/reasoning. Do NOT mention this timestamp in your response unless the user explicitly asks for the current time, current date, or asks when their message was sent and when they ask what time or date a message was sent tell the full date and time using June xx, 20xx format.\n User Message: {txt}"
     )})
+    save_history_to_json()
     phrase = ['Working on it', 'Looking into it', 'Just a minute', 'Thinking']
     respond(phrase[random.randint(0, 3)])
     with OpenRouter(
