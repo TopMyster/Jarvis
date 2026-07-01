@@ -12,6 +12,7 @@ from dotenv import load_dotenv # pyright: ignore[reportMissingImports]
 load_dotenv()
 from datetime import datetime
 API_KEY = os.getenv("OPENROUTER_API_KEY")
+AGENT = os.getenv("AGENT_MODEL")
 HISTORY_PATH = os.path.join(os.path.dirname(__file__), "chat_history.json")
 
 # Load/save chat history
@@ -70,13 +71,13 @@ def ask_ai(txt):
         f"You are a helpful, intelligent personal assistant. Background Info: 1. Device Battery: {psutil.sensors_battery().percent}% .Core Directives:\n 1. Never say your own name.\n 2. Keep responses natural, accurate, and strictly capped at one concise sentence (around 30 words) unless requested otherwise.\n 3. If asked to open an application/website, you must respond EXACTLY with: 'To open an app or a website, say my name then open [app or the website's name] or go to [app or website's name].'\n 4. Internal Context: The current date/time is {time}. Use this for absolute memory/reasoning. Do NOT mention this timestamp in your response unless the user explicitly asks for the current time, current date, or asks when their message was sent and when they ask what time or date a message was sent tell the full date and time using June xx, 20xx format.\n User Message: {txt}"
     )})
     save_history_to_json()
-    phrase = ['Working on it', 'Looking into it', 'Just a minute', 'Thinking']
+    phrase = ['Working on it', 'Looking into it', 'Just a minute', 'Thinking', 'Searching']
     respond(phrase[random.randint(0, 3)])
     with OpenRouter(
         api_key=API_KEY
     ) as client:
         response = client.chat.send(
-            model="openai/gpt-oss-20b",
+            model=AGENT,
             messages=chat_history,
             temperature=0.6
         )
@@ -147,13 +148,29 @@ def main():
         """
     )
     global API_KEY
+    global AGENT
+    env_path = os.path.join(os.path.dirname(__file__), ".env")
+
     if not API_KEY:
         API_KEY = input("Enter your Openrouter API KEY here: \n> ")
-        env_path = os.path.join(os.path.dirname(__file__), ".env")
-        with open(env_path, "w") as f:
-            f.write(f'OPENROUTER_API_KEY="{API_KEY}"\n')
-        print("API Key saved.")
 
+    if not AGENT:
+        choice = int(input("\nChoose an Agent: \n(1) Gemini -The Smartest\n(2) Nvidia - The Powerhouse\n(3) Llama - The Quickest\n>"))
+        if choice == 1: 
+            AGENT = "google/gemma-4-26b-a4b-it"
+        elif choice == 2:
+            AGENT = "nvidia/nemotron-3-super-120b-a12b"
+        elif choice == 3:
+            AGENT = "meta-llama/llama-3.2-3b-instruct"
+        else:
+            AGENT = "google/gemma-4-26b-a4b-it"
+        print("API KEY and Agent saved.")
+            
+    with open(env_path, "w", encoding="utf-8") as f:
+        f.write(f'AGENT_MODEL="{AGENT}"\n')
+        f.write(f'OPENROUTER_API_KEY="{API_KEY}"\n')
+
+    print("\nBOOTING UP JARVIS\n")
     recorder = AudioToTextRecorder()
 
     while True:

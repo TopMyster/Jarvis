@@ -7,7 +7,9 @@ https://github.com/user-attachments/assets/b174eb78-db2b-451b-ae2d-8761eb9feeb6
 ## Features
 
 - Wake word detection (`jarvis`)
+- Choose between 3 AI models
 - Opens Apps and websites
+- Access to battery info
 - Get Answers from AI
 - Jarvis has memory
 - Cross platform
